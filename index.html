@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>债与赌</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================================================ -->
+  <!--  标题画面                                          -->
+  <!-- ================================================ -->
+  <div id="title-screen">
+    <div class="title-content">
+      <h1 class="game-title">债 与 赌</h1>
+      <p class="game-subtitle">—— 你押上的是命运，还是自己？</p>
+      <button id="btn-start" class="start-btn">开 始 游 戏</button>
+      <button id="btn-ch2" class="start-btn" style="display:none;">第 二 章</button>
+      <button id="btn-continue" class="start-btn secondary" style="display:none;">继 续 游 戏</button>
+    </div>
+  </div>
+
+  <!-- ================================================ -->
+  <!--  游戏主容器                                        -->
+  <!-- ================================================ -->
+  <div id="game-container" style="display:none;">
+
+    <!-- 背景层 -->
+    <div id="background-layer">
+      <img id="bg-image" src="" alt="background" />
+    </div>
+
+    <!-- 立绘层 -->
+    <div id="sprite-layer">
+      <!-- 左侧：女主（默认显示） -->
+      <div class="sprite-slot" id="sprite-left">
+        <img id="sprite-left-img" src="" alt="" />
+      </div>
+      <!-- 右侧：其他角色 -->
+      <div class="sprite-slot" id="sprite-right">
+        <img id="sprite-right-img" src="" alt="" />
+      </div>
+    </div>
+
+    <!-- UI覆盖层 -->
+    <div id="ui-layer">
+
+      <!-- 行动点显示 -->
+      <div id="ap-display">
+        <span id="ap-text">行动点 2/2</span>
+      </div>
+
+      <!-- 左上角：属性栏 -->
+      <div id="attr-panel">
+        <div class="attr-row">
+          <span class="attr-label">学业</span>
+          <div class="attr-bar-bg"><div class="attr-bar-fill" id="attr-study"></div></div>
+          <span class="attr-word" id="attr-study-word">普通</span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-label">健康</span>
+          <div class="attr-bar-bg"><div class="attr-bar-fill health" id="attr-health"></div></div>
+          <span class="attr-word" id="attr-health-word">一般</span>
+        </div>
+        <div class="attr-row">
+          <span class="attr-label">心情</span>
+          <div class="attr-bar-bg"><div class="attr-bar-fill mood" id="attr-mood"></div></div>
+          <span class="attr-word" id="attr-mood-word">平静</span>
+        </div>
+        <div class="attr-row debt-row">
+          <span class="attr-label">欠债</span>
+          <span class="attr-val debt" id="attr-debt-val">1000万</span>
+        </div>
+        <div class="attr-row fund-row">
+          <span class="attr-label">赌资</span>
+          <span class="attr-val fund" id="attr-fund-val">0万</span>
+        </div>
+      </div>
+
+      <!-- 右上角按钮组 -->
+      <div id="top-right-btns">
+        <div id="skip-btn" title="跳过剧情">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <polygon points="5,4 15,12 5,20"></polygon>
+            <line x1="19" y1="5" x2="19" y2="19"></line>
+          </svg>
+        </div>
+        <div id="fullscreen-btn" title="全屏">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </div>
+        <div id="settings-btn" title="菜单">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </div>
+      </div> <!-- /top-right-btns -->
+
+      <!-- 菜单面板 -->
+      <div id="menu-panel" class="hidden">
+        <button class="menu-btn" id="btn-save">保存游戏</button>
+        <button class="menu-btn" id="btn-load">读取存档</button>
+        <button class="menu-btn" id="btn-restart">返回标题画面</button>
+        <button class="menu-btn" id="btn-close-menu">返回游戏</button>
+      </div>
+
+      <!-- 存档面板 -->
+      <div id="save-panel" class="hidden">
+        <h2>存档 / 读档</h2>
+        <div id="save-slots">
+          <div class="save-slot" data-slot="0"><span class="slot-label">存档 1</span><span class="slot-info" id="slot-info-0">空</span></div>
+          <div class="save-slot" data-slot="1"><span class="slot-label">存档 2</span><span class="slot-info" id="slot-info-1">空</span></div>
+          <div class="save-slot" data-slot="2"><span class="slot-label">存档 3</span><span class="slot-info" id="slot-info-2">空</span></div>
+        </div>
+        <div id="save-mode-toggle">
+          <button class="menu-btn active" data-mode="save">存档模式</button>
+          <button class="menu-btn" data-mode="load">读档模式</button>
+        </div>
+        <button class="menu-btn" id="btn-close-save">返回</button>
+      </div>
+
+      <!-- 中间：行动选项面板 -->
+      <div id="action-panel" class="hidden">
+        <h3 class="action-title">选 择 行 动</h3>
+        <div id="action-buttons"></div>
+      </div>
+
+      <!-- VS 对阵画面 -->
+      <div id="vs-screen" class="hidden">
+        <div class="vs-bg"></div>
+        <div class="vs-left">
+          <img id="vs-left-img" src="" alt="" />
+          <span class="vs-name" id="vs-left-name"></span>
+        </div>
+        <div class="vs-center">
+          <span class="vs-text">V S</span>
+        </div>
+        <div class="vs-right">
+          <img id="vs-right-img" src="" alt="" />
+          <span class="vs-name" id="vs-right-name"></span>
+        </div>
+      </div>
+
+      <!-- 对话框区域 -->
+      <div id="dialogue-area">
+        <!-- 姓名标签 -->
+        <div id="name-tag" class="hidden">
+          <span id="name-text"></span>
+        </div>
+        <!-- 对话框 -->
+        <div id="text-box">
+          <p id="dialogue-text"></p>
+          <span id="continue-indicator">▼</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 浮动数字层 -->
+    <div id="float-layer"></div>
+
+  </div>
+
+  <!-- ====== 脚本加载 ====== -->
+  <script src="js/utils/assetLoader.js"></script>
+  <script src="js/data/characters.js"></script>
+  <script src="js/data/script-ch1.js"></script>
+  <script src="js/engine/flag.js"></script>
+  <script src="js/engine/attributes.js"></script>
+  <script src="js/engine/scene.js"></script>
+  <script src="js/engine/sprite.js"></script>
+  <script src="js/engine/dialogue.js"></script>
+  <script src="js/engine/choice.js"></script>
+  <script src="js/engine/save.js"></script>
+  <script src="js/engine/minigame.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
