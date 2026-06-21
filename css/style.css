@@ -42,8 +42,7 @@ html, body {
   position: fixed;
   inset: 0;
   z-index: 999;
-  background:
-    radial-gradient(ellipse at center, rgba(30,20,40,0.95) 0%, rgba(0,0,0,1) 100%);
+  background: url('../场景/游戏开始界面.png') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
